@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:F1Weather.ViewModel"
+             xmlns:model="clr-namespace:F1Weather.Models"
+             x:Class="F1Weather.View.ChooseCircuit"
+             x:DataType="viewmodel:CircuitViewModel"
+             Title="Choose Circuit">
+
+    <Grid ColumnDefinitions="*,*"
+          ColumnSpacing="5"
+          RowDefinitions="*,Auto"
+          RowSpacing="0">
+        <RefreshView Grid.ColumnSpan="2"
+                     Command="{Binding GetCircuitsCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView
+                ItemsSource="{Binding Circuits}"
+                SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Circuits">
+                        
+                        <Grid Padding="10">
+                            <Frame HeightRequest="125"
+                                       Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CircuitViewModel}}, Path=GoToDetailsCommand}"/>
+                                </Frame.GestureRecognizers>
+                            <Grid Padding="0"
+                                  ColumnDefinitions="125, *">
+                                    <Image Aspect="AspectFill"
+                                       Source="{Binding CircuitImagePath}"
+                                       WidthRequest="140"
+                                       HeightRequest="140"/>
+                                    <VerticalStackLayout Grid.Column="1"
+                                                     Padding="10"
+                                                     VerticalOptions="Center">
+                                        <Label Text="{Binding StartTime, StringFormat='{0:MMMM dd, yyyy}'}"
+                                           TextColor="Red"
+                                           FontSize="18"/>
+                                        <Label Text="{Binding Name}"
+                                           TextColor="Aqua"
+                                           FontSize="20"/>
+                                        <Label Text="{Binding Country, StringFormat='Country : {0}'}"
+                                           TextColor="Beige"
+                                           FontSize="16"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </RefreshView>
+        <Button 
+           Text="Get Circuits"
+           Command="{Binding GetCircuitsCommand}"
+           IsEnabled="{Binding IsNotBusy}"
+           Grid.Row="1"
+           Margin="8"/>
+    </Grid>
+</ContentPage>
