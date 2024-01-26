@@ -9,17 +9,23 @@ public partial class CircuitDetailViewModel : BaseViewModel
     [ObservableProperty]
     Color _bckGroundColour;
     [ObservableProperty]
-    bool _updatedWeather;
+    bool _showWeather;
+    [ObservableProperty]
+    bool _showForecast;
     [ObservableProperty]
     string? _description;
     [ObservableProperty]
     string? _temp;
     [ObservableProperty]
     string? _windSpeed;
+    [ObservableProperty]
+    List<Forecast>? _forecasts;
+
     public CircuitDetailViewModel(GetWeather gw)
     {
         _getWeather = gw;
-        _updatedWeather = false;
+        _showWeather = false;
+        _showForecast = false;
         _bckGroundColour = Color.FromRgb(0,0,0);
     }
     [ObservableProperty]
@@ -28,11 +34,13 @@ public partial class CircuitDetailViewModel : BaseViewModel
     [RelayCommand]
     void Back()
     {
-        UpdatedWeather = false;
+        ShowForecast = false;
+        ShowWeather = false;
         Shell.Current.Navigation.PopAsync();
         BckGroundColour = Color.FromRgb(0, 0, 0);
     }
 
+    // Switch display based on if current weather or forecasted
     [RelayCommand]
     public async Task GetWeatherAsync()
     {
@@ -57,11 +65,16 @@ public partial class CircuitDetailViewModel : BaseViewModel
         double wdspd = cwm.Wind.Speed;
         WindSpeed = $"Wind : {wdspd}";
 
-        UpdatedWeather = true;
+        ShowWeather = true;
     }
     [RelayCommand]
     public async Task GetForecastAsync()
     {
+        // Todo understand data returned then 
+        // devise best way to display on screen 
+        // list of,
+        // date / time / temp / desc / chance of rain / etc
+        Forecasts = [];
         if (Circuits == null)
         {
             return;
@@ -70,23 +83,24 @@ public partial class CircuitDetailViewModel : BaseViewModel
         ForeCastWeatherModel fcwm = await _getWeather.GetForecastFromApiAsync();
         foreach (var forecast in fcwm.List)
         {
-
-            if (forecast == null || forecast.Weather is null || forecast.Main is null || forecast.Wind is null)
+            
+            if (forecast == null || forecast.Weather is null || forecast.Main is null )
             {
                 await Shell.Current.DisplayAlert("Error", "Error fetching Weather data", "OK");
                 return;
             }
-            string p = forecast.Pop.ToString();
-            Description = $"Current Weather : {forecast.Weather.First().Description.ToUpper()}";
-
+            Forecast stringForecast = new();
+            DateTimeOffset convertedDt = HelperMethods.ConvertDTtoDateTime(forecast.Dt);
+            stringForecast.DateAndTime = $"{convertedDt.DayOfWeek} : {convertedDt.TimeOfDay}";
+            stringForecast.RainProbability = $"Rain : {forecast.Pop}%";
+            stringForecast.Description = $"{forecast.Weather.First().Description.ToUpper()}";
             int temp = HelperMethods.ConvertKelvinToCelsius(forecast.Main.Temp);
-            Temp = $"Temperature : {temp}c";
-            SetBackGroundColour(temp);
+            stringForecast.Temperature = $"Temperature : {temp} c";
 
-            double wdspd = forecast.Wind.Speed;
-            WindSpeed = $"Wind : {wdspd}";
+
+            Forecasts.Add(stringForecast);
         }
-        UpdatedWeather = true;
+        ShowForecast = true;
     }
 
     void SetBackGroundColour(double temp)

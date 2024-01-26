@@ -13,6 +13,12 @@ public partial class CircuitViewModel : BaseViewModel
     bool _isRefreshing;
 
     [RelayCommand]
+    void BackToMain()
+    {
+        Shell.Current.GoToAsync("..");
+    }
+
+    [RelayCommand]
     async Task GoToDetailsAsync(Circuits circuit)
     {
         if (circuit is null)
