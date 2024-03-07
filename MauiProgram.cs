@@ -22,7 +22,7 @@ public static class MauiProgram
 #endif
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<GetWeather>();
-        builder.Services.AddSingleton<CircuitService>();
+        builder.Services.AddSingleton<ICircuitService, CircuitHardCodedService>();
         builder.Services.AddSingleton<ChooseCircuit>();
         builder.Services.AddSingleton<CircuitPage>();
 

@@ -8,7 +8,13 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         BindingContext = vm;
         _logger = logger;
+
+        
+        
+
         _logger.LogInformation("Main Page initialized");
     }   
+
+    
 }
 

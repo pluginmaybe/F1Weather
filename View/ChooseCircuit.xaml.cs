@@ -7,5 +7,6 @@ public partial class ChooseCircuit : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = vm;
+		
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace F1Weather.ViewModel;
+﻿namespace F1Weather.ViewModel;
 
 [QueryProperty("Circuits", "Circuits")]
 public partial class CircuitDetailViewModel : BaseViewModel
@@ -91,7 +89,9 @@ public partial class CircuitDetailViewModel : BaseViewModel
             }
             Forecast stringForecast = new();
             DateTimeOffset convertedDt = HelperMethods.ConvertDTtoDateTime(forecast.Dt);
+            
             stringForecast.DateAndTime = $"{convertedDt.DayOfWeek} : {convertedDt.TimeOfDay}";
+            
             stringForecast.RainProbability = $"Rain : {forecast.Pop}%";
             stringForecast.Description = $"{forecast.Weather.First().Description.ToUpper()}";
             int temp = HelperMethods.ConvertKelvinToCelsius(forecast.Main.Temp);

@@ -1,16 +1,17 @@
 ﻿namespace F1Weather.ViewModel;
 public partial class CircuitViewModel : BaseViewModel
 {
-    readonly CircuitService _circuitService;
+    readonly ICircuitService _circuitService;
     readonly ILogger _logger;
     public ObservableCollection<Circuits> Circuits { get; } = [];
-    public CircuitViewModel(ILogger<CircuitViewModel> logger, CircuitService circuitService)
+    public CircuitViewModel(ILogger<CircuitViewModel> logger, ICircuitService circuitService)
     {
         _circuitService = circuitService;
         _logger = logger;
+        GetCircuitsAsync().Wait();
     }
     [ObservableProperty]
-    bool _isRefreshing;
+    bool _isRefreshing = false;
 
     [RelayCommand]
     void BackToMain()

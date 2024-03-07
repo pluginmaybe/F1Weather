@@ -2,7 +2,7 @@
 
 namespace F1Weather.Services;
 
-public class CircuitService
+public class CircuitService : ICircuitService
 {
     List<Circuits> _circuitsList = [];
     // ToDo change from local Excel file

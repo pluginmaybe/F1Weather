@@ -1,4 +1,6 @@
-﻿namespace F1Weather.ViewModel;
+﻿using System.Drawing;
+
+namespace F1Weather.ViewModel;
 public partial class MainViewModel : BaseViewModel
 {
     public MainViewModel() { }
@@ -8,4 +10,6 @@ public partial class MainViewModel : BaseViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(ChooseCircuit)}");
     }
+
+
 }
