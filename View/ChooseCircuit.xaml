@@ -7,10 +7,13 @@
              x:DataType="viewmodel:CircuitViewModel"
              Title="Choose Circuit">
 
+   
+
     <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
           RowDefinitions="*,Auto"
-          RowSpacing="0">
+          RowSpacing="0"
+          BackgroundColor="{Binding BckGroundColour}">
         <RefreshView Grid.ColumnSpan="2"
                      Command="{Binding GetCircuitsCommand}"
                      IsRefreshing="{Binding IsRefreshing}">
@@ -23,7 +26,9 @@
                         
                         <Grid Padding="10">
                             <Frame HeightRequest="125"
-                                       Padding="0">
+                                       Padding="0"
+                                   
+                                   >
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CircuitViewModel}}, Path=GoToDetailsCommand}"/>

@@ -12,7 +12,7 @@ public class CircuitCSVService : ICircuitService
         _circuitsList.Clear();
 
         string _ = await LoadCircuitCSV();
-          
+
 
         return _circuitsList;
     }
@@ -23,7 +23,7 @@ public class CircuitCSVService : ICircuitService
         using StreamReader sr = new(fs);
         return await sr.ReadToEndAsync();
     }
-    
+
 
     void MapToCircuit(string line)
     {

@@ -22,9 +22,15 @@ public partial class CircuitDetailViewModel : BaseViewModel
     public CircuitDetailViewModel(GetWeather gw)
     {
         _getWeather = gw;
+        var apikey = ""; // ENTER API KEY HERE
+        if (apikey is null)
+        {
+            throw new ArgumentNullException(nameof(apikey));
+        }
+        _getWeather.SetKey(apikey);
         _showWeather = false;
         _showForecast = false;
-        _bckGroundColour = Color.FromRgb(0,0,0);
+        _bckGroundColour = Color.FromRgb(0, 0, 0);
     }
     [ObservableProperty]
     Circuits? _circuits;
@@ -42,6 +48,7 @@ public partial class CircuitDetailViewModel : BaseViewModel
     [RelayCommand]
     public async Task GetWeatherAsync()
     {
+
         if (Circuits == null)
         {
             return;
@@ -55,11 +62,11 @@ public partial class CircuitDetailViewModel : BaseViewModel
         }
 
         Description = $"Current Weather : {cwm.Weather.First().Description.ToUpper()}";
-        
+
         int temp = HelperMethods.ConvertKelvinToCelsius(cwm.Main.Temp);
         Temp = $"Temperature : {temp}c";
         SetBackGroundColour(temp);
-        
+
         double wdspd = cwm.Wind.Speed;
         WindSpeed = $"Wind : {wdspd}";
 
@@ -81,18 +88,18 @@ public partial class CircuitDetailViewModel : BaseViewModel
         ForeCastWeatherModel fcwm = await _getWeather.GetForecastFromApiAsync();
         foreach (var forecast in fcwm.List)
         {
-            
-            if (forecast == null || forecast.Weather is null || forecast.Main is null )
+
+            if (forecast == null || forecast.Weather is null || forecast.Main is null)
             {
                 await Shell.Current.DisplayAlert("Error", "Error fetching Weather data", "OK");
                 return;
             }
             Forecast stringForecast = new();
             DateTimeOffset convertedDt = HelperMethods.ConvertDTtoDateTime(forecast.Dt);
-            
+
             stringForecast.DateAndTime = $"{convertedDt.DayOfWeek} : {convertedDt.TimeOfDay}";
-            
-            stringForecast.RainProbability = $"Rain : {forecast.Pop}%";
+
+            stringForecast.RainProbability = $"Rain : {forecast.Pop * 100}%";
             stringForecast.Description = $"{forecast.Weather.First().Description.ToUpper()}";
             int temp = HelperMethods.ConvertKelvinToCelsius(forecast.Main.Temp);
             stringForecast.Temperature = $"Temperature : {temp} c";

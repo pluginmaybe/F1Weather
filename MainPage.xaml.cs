@@ -9,12 +9,12 @@ public partial class MainPage : ContentPage
         BindingContext = vm;
         _logger = logger;
 
-        
-        
+
+
 
         _logger.LogInformation("Main Page initialized");
-    }   
+    }
 
-    
+
 }
 

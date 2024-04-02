@@ -1,9 +1,10 @@
-﻿using System.Drawing;
-
-namespace F1Weather.ViewModel;
+﻿namespace F1Weather.ViewModel;
 public partial class MainViewModel : BaseViewModel
 {
-    public MainViewModel() { }
+    public MainViewModel()
+    {
+
+    }
 
     [RelayCommand]
     async Task NavigateToChoose()

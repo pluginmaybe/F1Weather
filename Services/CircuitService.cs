@@ -6,14 +6,16 @@ public class CircuitService : ICircuitService
 {
     List<Circuits> _circuitsList = [];
     // ToDo change from local Excel file
-    readonly string _file = "C:\\Users\\markl\\Source\\BoardGame\\F1Weather\\Resources\\Raw\\CircuitLocations.xlsx"; 
+    readonly string _file = "C:\\Users\\markl\\Source\\BoardGame\\F1Weather\\Resources\\Raw\\CircuitLocations.xlsx";
+    //readonly string _file = "CircuitLocations.xlsx";
+
     FileInfo FileInfo { get; set; }
 
     public CircuitService()
     {
         FileInfo = new FileInfo(_file);
     }
-    
+
     public async Task<List<Circuits>> GetCircuits()
     {
         if (_circuitsList?.Count > 0)
@@ -44,28 +46,28 @@ public static class ExcelHelper
         int row = 2;
         int col = 1;
 
-        while (string.IsNullOrWhiteSpace(ws.Cells[row,col].Value?.ToString()) == false)
+        while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
         {
             Circuits c = new();
-            if (int.TryParse(ws.Cells[row, col].Value.ToString(), out int n)) c.Id = n; 
+            if (int.TryParse(ws.Cells[row, col].Value.ToString(), out int n)) c.Id = n;
             else continue;
-            
+
             c.Name = ws.Cells[row, col + 1].Value.ToString() ?? "";
             c.Region = ws.Cells[row, col + 2].Value.ToString() ?? "";
             c.Country = ws.Cells[row, col + 3].Value.ToString() ?? "";
-            
+
             if (double.TryParse(ws.Cells[row, col + 4].Value.ToString(), out double d)) c.Latitude = d;
             else c.Latitude = 0;
-            
+
             if (double.TryParse(ws.Cells[row, col + 5].Value.ToString(), out d)) c.Longitude = d;
             else c.Longitude = 0;
-            
+
             string circuitImageName = ws.Cells[row, col + 6].Value.ToString() ?? "";
             c.CircuitImagePath = circuitImageName + ".jpg";
-            
+
             if (double.TryParse(ws.Cells[row, col + 7].Value.ToString(), out d)) c.StartTime = DateTime.FromOADate(d);
             else c.StartTime = DateTime.Today;
-            
+
             output.Add(c);
             row++;
         }

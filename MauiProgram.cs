@@ -4,7 +4,7 @@ using OfficeOpenXml;
 namespace F1Weather;
 public static class MauiProgram
 {
-    
+
     public static MauiApp CreateMauiApp()
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -18,7 +18,7 @@ public static class MauiProgram
             });
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<GetWeather>();
@@ -29,7 +29,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<CircuitDetailViewModel>();
         builder.Services.AddSingleton<CircuitViewModel>();
-        builder.Logging.AddTraceLogger(options =>{
+        builder.Logging.AddTraceLogger(options =>
+        {
             options.MinLevel = LogLevel.Debug;
         });
         //builder.Logging.AddStreamingFileLogger(_ => { });

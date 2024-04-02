@@ -1,9 +1,9 @@
-﻿global using F1Weather.Models;
+﻿global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using F1Weather.Models;
+global using F1Weather.Services;
 global using F1Weather.View;
 global using F1Weather.ViewModel;
-global using CommunityToolkit.Mvvm.ComponentModel;
-global using CommunityToolkit.Mvvm.Input;
+global using Microsoft.Extensions.Logging;
 global using System.Collections.ObjectModel;
 global using WeatherLib;
-global using Microsoft.Extensions.Logging;
-global using F1Weather.Services;
