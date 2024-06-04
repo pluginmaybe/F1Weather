@@ -5,7 +5,7 @@ namespace F1Weather.Services;
 public class CircuitService : ICircuitService
 {
     List<Circuits> _circuitsList = [];
-    // ToDo change from local Excel file
+    
     readonly string _file = "C:\\Users\\markl\\Source\\BoardGame\\F1Weather\\Resources\\Raw\\CircuitLocations.xlsx";
     //readonly string _file = "CircuitLocations.xlsx";
 

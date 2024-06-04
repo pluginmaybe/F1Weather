@@ -5,6 +5,8 @@ public partial class CircuitDetailViewModel : BaseViewModel
 {
     readonly GetWeather _getWeather;
     [ObservableProperty]
+    Color _weatherBackground;
+    [ObservableProperty]
     Color _bckGroundColour;
     [ObservableProperty]
     bool _showWeather;
@@ -17,17 +19,14 @@ public partial class CircuitDetailViewModel : BaseViewModel
     [ObservableProperty]
     string? _windSpeed;
     [ObservableProperty]
+    string? _main;
+    [ObservableProperty]
     List<Forecast>? _forecasts;
 
     public CircuitDetailViewModel(GetWeather gw)
     {
         _getWeather = gw;
-        var apikey = ""; // ENTER API KEY HERE
-        if (apikey is null)
-        {
-            throw new ArgumentNullException(nameof(apikey));
-        }
-        _getWeather.SetKey(apikey);
+     
         _showWeather = false;
         _showForecast = false;
         _bckGroundColour = Color.FromRgb(0, 0, 0);
@@ -48,7 +47,15 @@ public partial class CircuitDetailViewModel : BaseViewModel
     [RelayCommand]
     public async Task GetWeatherAsync()
     {
-
+        if (ShowWeather)
+        {
+            ShowWeather = false;
+            return;
+        }
+        if (ShowForecast)
+        {
+            ShowForecast = false;
+        }
         if (Circuits == null)
         {
             return;
@@ -60,21 +67,32 @@ public partial class CircuitDetailViewModel : BaseViewModel
             await Shell.Current.DisplayAlert("Error", "Error fetching Weather data", "OK");
             return;
         }
-
-        Description = $"Current Weather : {cwm.Weather.First().Description.ToUpper()}";
+        Main = $"Current Weather : {cwm.Weather.First().Main.ToUpper()}";
+        Description = $"({cwm.Weather.First().Description})";
 
         int temp = HelperMethods.ConvertKelvinToCelsius(cwm.Main.Temp);
         Temp = $"Temperature : {temp}c";
         SetBackGroundColour(temp);
 
         double wdspd = cwm.Wind.Speed;
-        WindSpeed = $"Wind : {wdspd}";
+        WindSpeed = $"Wind : {wdspd} meter/sec";
+
+        
 
         ShowWeather = true;
     }
     [RelayCommand]
     public async Task GetForecastAsync()
     {
+        if (ShowForecast)
+        {
+            ShowForecast = false;
+            return;
+        }
+        if (ShowWeather)
+        {
+            ShowWeather = false;
+        }
         // Todo understand data returned then 
         // devise best way to display on screen 
         // list of,
@@ -138,6 +156,6 @@ public partial class CircuitDetailViewModel : BaseViewModel
                 b = 20;
                 break;
         }
-        BckGroundColour = Color.FromRgb(r, g, b);
+        WeatherBackground = Color.FromRgb(r, g, b);
     }
 }

@@ -7,8 +7,6 @@
              x:DataType="viewmodel:CircuitViewModel"
              Title="Choose Circuit">
 
-   
-
     <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
           RowDefinitions="*,Auto"
@@ -16,14 +14,15 @@
           BackgroundColor="{Binding BckGroundColour}">
         <RefreshView Grid.ColumnSpan="2"
                      Command="{Binding GetCircuitsCommand}"
-                     IsRefreshing="{Binding IsRefreshing}">
+                     IsRefreshing="{Binding IsRefreshing}"
+                     >
             <CollectionView
                 ItemsSource="{Binding Circuits}"
                 SelectionMode="None">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Circuits">
-                        
+
                         <Grid Padding="10">
                             <Frame HeightRequest="125"
                                        Padding="0"
@@ -33,7 +32,7 @@
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CircuitViewModel}}, Path=GoToDetailsCommand}"/>
                                 </Frame.GestureRecognizers>
-                            <Grid Padding="0"
+                                <Grid Padding="0"
                                   ColumnDefinitions="125, *">
                                     <Image Aspect="AspectFill"
                                        Source="{Binding CircuitImagePath}"
@@ -55,11 +54,10 @@
                                 </Grid>
                             </Frame>
                         </Grid>
-                        
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
         </RefreshView>
         <Button 
            Text="Get Circuits"

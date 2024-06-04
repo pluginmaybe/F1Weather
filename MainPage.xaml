@@ -14,16 +14,13 @@
                 HeightRequest="185"
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a race car number eight" />
-
             <Label
-                Text="Hello, World!"
+                Text="F1 Season 2024"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
-
             <Button
                 Text="Go To Circuits" 
                 Command="{Binding NavigateToChooseCommand}"
-                
                 HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>

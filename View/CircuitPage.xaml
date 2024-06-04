@@ -33,13 +33,13 @@
 
                 </Frame>
                 <Label
-                FontSize="20"
-                BackgroundColor="Transparent"
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="{Binding Circuits.Region}"
-                TextColor="AntiqueWhite"
-                HorizontalTextAlignment="Center"/>
+                    FontSize="20"
+                    BackgroundColor="Transparent"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Circuits.Region}"
+                    TextColor="AntiqueWhite"
+                    HorizontalTextAlignment="Center"/>
                 <Label
                 FontSize="22"
                  BackgroundColor="Transparent"
@@ -48,60 +48,73 @@
                  Text="{Binding Circuits.Country}"
                  TextColor="LightGoldenrodYellow"
                 HorizontalTextAlignment="Center"/>
-                <!--<Button
-                FontSize="20"
-                Grid.Row="3"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Text="Current Weather"
-                TextColor="OrangeRed"
-                BackgroundColor="Aquamarine"
-                Margin="5"
-                Command="{Binding GetWeatherCommand}"/>-->
                 <Button
-                FontSize="20"
-                Grid.Row="3"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Text="Get Forecast"
-                TextColor="OrangeRed"
-                BackgroundColor="Aquamarine"
-                Margin="5"
-                Command="{Binding GetForecastCommand}"/>
-
-                <!--<Grid ColumnDefinitions="*,Auto,*"
-              RowDefinitions="*,*,*,*"
-              IsVisible="{Binding ShowWeather}">
-            <Label
-                FontSize="24"
-                BackgroundColor="Transparent"
-                Grid.Row="0"
-                Grid.Column="1"
-                Text="{Binding Description}"
-                TextColor="AliceBlue"
-                HorizontalTextAlignment="Center"/>
-            <Label
-                  FontSize="24"
-                  BackgroundColor="Transparent"
-                  Grid.Row="1"
-                  Grid.Column="1"
-                  Text="{Binding Temp}"
-                  TextColor="AliceBlue"
-                HorizontalTextAlignment="Center"/>
-            <Label
-                  FontSize="24"
-                  BackgroundColor="Transparent"
-                  Grid.Row="2"
-                  Grid.Column="1"
-                  Text="{Binding WindSpeed}"
-                  TextColor="AliceBlue"
-                HorizontalTextAlignment="Center"/>
-        </Grid>-->
+                    FontSize="18"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    Text="Current Weather"
+                    TextTransform="Uppercase"
+                    FontAttributes="Bold"
+                    TextColor="OrangeRed"
+                    BackgroundColor="Aquamarine"
+                    Margin="5"
+                    Command="{Binding GetWeatherCommand}"/>
+                <Button
+                    FontSize="18"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Text="Get Forecast"
+                    FontAttributes="Bold"
+                    TextTransform="Uppercase"
+                    TextColor="OrangeRed"
+                    BackgroundColor="Aquamarine"
+                    Margin="5"
+                    Command="{Binding GetForecastCommand}"/>
             </Grid>
         </StackLayout>
         <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto,*"
+                  RowDefinitions="*,*,*,*"
+                  IsVisible="{Binding ShowWeather}"
+                  BackgroundColor="{Binding WeatherBackground}">
+                <Label
+                     FontSize="20"
+                     BackgroundColor="Transparent"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Text="{Binding Main}"
+                     TextColor="AliceBlue"
+                     HorizontalTextAlignment="Center" />
+                <Label
+                    FontSize="20"
+                    BackgroundColor="Transparent"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Description}"
+                    TextColor="AliceBlue"
+                    HorizontalTextAlignment="Center"/>
+                <Label
+                    FontSize="20"
+                    BackgroundColor="Transparent"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding Temp}"
+                    TextColor="AliceBlue"
+                    HorizontalTextAlignment="Center"/>
+               
+                <Label
+                    FontSize="20"
+                    BackgroundColor="Transparent"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="{Binding WindSpeed}"
+                    TextColor="AliceBlue"
+                    HorizontalTextAlignment="Center"/>
+            </Grid>
             <CollectionView
-                HeightRequest="300"
+                HeightRequest="280"
                 IsVisible="{Binding ShowForecast}"
                 ItemsSource="{Binding Forecasts}"
                 SelectionMode="None">

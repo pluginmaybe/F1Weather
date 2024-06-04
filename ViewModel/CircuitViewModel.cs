@@ -54,8 +54,10 @@ public partial class CircuitViewModel : BaseViewModel
             {
                 Circuits.Clear();
             }
+            circuits = ReOrderCircuits(circuits);
             foreach (var c in circuits)
             {
+                
                 Circuits.Add(c);
             }
         }
@@ -70,5 +72,24 @@ public partial class CircuitViewModel : BaseViewModel
             IsRefreshing = false;
             _logger.LogInformation("Refreshing Complete");
         }
+    }
+    static List<Circuits> ReOrderCircuits (List<Circuits> circuits)
+    {
+        int i = 0;
+        while (i < circuits.Count)
+        {
+            if (circuits.ElementAt(0).StartTime.Date < DateTime.Now.Date)
+            {
+                var circ = circuits.ElementAt(0);
+                circuits.RemoveAt(0);
+                circuits.Add(circ);
+            }
+            else
+            {
+                break;
+            }
+            i++;
+        }
+        return circuits;
     }
 }

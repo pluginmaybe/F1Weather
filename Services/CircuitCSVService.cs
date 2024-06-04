@@ -6,7 +6,6 @@ public class CircuitCSVService : ICircuitService
 
     public async Task<List<Circuits>> GetCircuits()
     {
-        // TODO Read circuit details from csv file
         // Attempted to find and use csv/text file in Resources/Raw
         // May be a Maui issue ?
         _circuitsList.Clear();

@@ -4,7 +4,6 @@ using OfficeOpenXml;
 namespace F1Weather;
 public static class MauiProgram
 {
-
     public static MauiApp CreateMauiApp()
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
